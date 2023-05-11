@@ -14,6 +14,18 @@ mvn clean install
 ```
 
 
+## Add Properties
+
+Add the following entries to the project's application.properties file
+
+``` shell
+spring.datasource.url=jdbc:h2:file:./data/relation-db
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=sa
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+```
+
 ## Running the application locally
 Just like every other spring boot application, the easiest way to run this spring boot application is to execute
 the `main` method in the `com.venly.task.TaskApplication` class from an IDE.
