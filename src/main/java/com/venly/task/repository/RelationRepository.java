@@ -11,4 +11,5 @@ import java.util.List;
 public interface RelationRepository extends JpaRepository<Relation, Long> {
     List<Relation> findAllByRelation(RelationType relationType);
 
+    boolean existsWordRelationByWordAndAnotherWordAndRelation(String word, String anotherWord, RelationType relation);
 }

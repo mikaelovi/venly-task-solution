@@ -1,6 +1,7 @@
 package com.venly.task.service;
 
 import com.venly.task.common.enumeration.RelationType;
+import com.venly.task.common.exception.BadRequestException;
 import com.venly.task.entity.Relation;
 import com.venly.task.entity.dto.RelationDto;
 import com.venly.task.repository.RelationRepository;
@@ -23,6 +24,15 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     public RelationDto create(RelationDto wordRelation) {
+
+        if (relationRepository.existsWordRelationByWordAndAnotherWordAndRelation(wordRelation.getWordOne(),
+                wordRelation.getWordTwo(), RelationType.valueOf(wordRelation.getRelationType()))
+                || relationRepository.existsWordRelationByWordAndAnotherWordAndRelation(wordRelation.getWordTwo(),
+                wordRelation.getWordOne(), RelationType.valueOf(wordRelation.getRelationType()))) {
+            throw new BadRequestException(String.format("An existing relation exists between %s and %s",
+                    wordRelation.getWordOne(), wordRelation.getWordTwo()));
+        }
+
         final var savedRelation = relationRepository.save(wordRelation.toRelation());
 
         return savedRelation.toDto();
