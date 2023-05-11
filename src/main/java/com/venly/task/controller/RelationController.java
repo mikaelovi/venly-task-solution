@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,10 @@ public class RelationController {
         return ResponseEntity.ok(relationService.findAllByOptionalFilters(relation, showInverse));
     }
 
+    @GetMapping("path/search/{source}/{target}")
+    public ResponseEntity<String> findPath(@PathVariable(name = "source") String source, @PathVariable(name = "target") String target) {
+        return ResponseEntity.ok(relationService.findPath(source, target));
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

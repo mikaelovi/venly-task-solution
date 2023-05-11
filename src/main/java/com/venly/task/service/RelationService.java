@@ -10,4 +10,7 @@ public interface RelationService {
     List<RelationDto> findAllByOptionalFilters(String relation, boolean showInverse);
 
     List<Relation> filterByRelation(String relation);
+
+    String findPath(String source, String target);
+
 }
