@@ -26,8 +26,16 @@ public class RelationDto {
     @NotBlank(message = "Relation Type may not be blank")
     String relationType;
 
+    String inverse;
+
     public Relation toRelation() {
         return new Relation(this.wordOne, this.wordTwo, RelationType.valueOf(relationType));
+    }
+
+    public RelationDto invertRelation(boolean invert) {
+        if (invert) return new RelationDto(this.wordTwo, this.wordOne, this.relationType, "yes");
+
+        return new RelationDto(this.wordTwo, this.wordOne, this.relationType, "no");
     }
 
     @Override

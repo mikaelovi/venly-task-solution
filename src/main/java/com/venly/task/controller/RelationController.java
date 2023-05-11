@@ -36,8 +36,9 @@ public class RelationController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<RelationDto>> getAll(@RequestParam(value = "relation", required = false) final String relation) {
-        return ResponseEntity.ok(relationService.findAllByOptionalFilters(relation));
+    public ResponseEntity<List<RelationDto>> getAll(@RequestParam(value = "relation", required = false) final String relation,
+                                                    @RequestParam(value = "showInverse", required = false) final boolean showInverse) {
+        return ResponseEntity.ok(relationService.findAllByOptionalFilters(relation, showInverse));
     }
 
 

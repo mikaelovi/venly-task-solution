@@ -47,7 +47,7 @@ public class Relation {
 
 
     public RelationDto toDto() {
-        return new RelationDto(this.wordOne, this.wordTwo, this.relationType.name());
+        return new RelationDto(this.wordOne, this.wordTwo, this.relationType.name(), "");
     }
 
 }

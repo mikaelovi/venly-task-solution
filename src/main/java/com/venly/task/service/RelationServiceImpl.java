@@ -9,6 +9,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RelationServiceImpl implements RelationService {
@@ -27,16 +29,25 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public List<RelationDto> findAllByOptionalFilters(String relation) {
+    public List<RelationDto> findAllByOptionalFilters(String relation, boolean showInverse) {
         var allWordRelations = relationRepository.findAll();
 
         if (Objects.nonNull(relation) && StringUtils.hasLength(relation)) {
             allWordRelations = filterByRelation(relation);
         }
 
-        return allWordRelations.stream().map(Relation::toDto).toList();
+        return showInverse
+                ? showAllRelationsAndIncludeInverseInfo(allWordRelations)
+                : allWordRelations.stream().map(Relation::toDto).toList();
     }
 
+    private List<RelationDto> showAllRelationsAndIncludeInverseInfo(List<Relation> allWords) {
+        return allWords.stream()
+                .flatMap(wordRelation -> Stream.of(
+                        wordRelation.toDto().invertRelation(false),
+                        wordRelation.toDto().invertRelation(true)))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<Relation> filterByRelation(String relation) {

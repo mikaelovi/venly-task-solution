@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RelationService {
     RelationDto create(RelationDto wordRelation);
-    List<RelationDto> findAllByOptionalFilters(String relation);
+    List<RelationDto> findAllByOptionalFilters(String relation, boolean showInverse);
 
     List<Relation> filterByRelation(String relation);
 }

@@ -30,7 +30,7 @@ class RelationServiceImplTest {
     @Test
     void testCreateWordRelation() {
         final var newWordRel = new Relation("son", "daughter", RelationType.RELATED);
-        final var request = new RelationDto("son", "daughter", "RELATED");
+        final var request = new RelationDto("son", "daughter", "RELATED", "");
 
         when(relationRepository.save(any(Relation.class))).thenReturn(newWordRel);
 

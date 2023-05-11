@@ -45,7 +45,7 @@ class RelationControllerTest {
 
     @Test
     void givenAllThreeEmptyParametersFailToCreateRelation() throws Exception {
-        final var relationDto = new RelationDto("", "", "");
+        final var relationDto = new RelationDto("", "", "", "");
 
         mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -60,7 +60,7 @@ class RelationControllerTest {
 
     @Test
     void givenAllThreeNullParametersFailToCreateRelation() throws Exception {
-        final var relationDto = new RelationDto(null, null, null);
+        final var relationDto = new RelationDto(null, null, null, null);
 
         mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -76,7 +76,7 @@ class RelationControllerTest {
 
     @Test
     void givenOneOrMoreEmptyParametersFailToCreateRelation() throws Exception {
-        final var relationDto = new RelationDto("word", "", "");
+        final var relationDto = new RelationDto("word", "", "", "");
 
         mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -90,7 +90,7 @@ class RelationControllerTest {
 
     @Test
     void givenOneOrMoreNullParametersFailToCreateRelation() throws Exception {
-        final var relationDto = new RelationDto("word", null, "ANTONYM");
+        final var relationDto = new RelationDto("word", null, "ANTONYM", "");
 
         mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -103,7 +103,7 @@ class RelationControllerTest {
 
     @Test
     void givenOneOrMoreNullAndEmptyParametersFailToCreateRelation() throws Exception {
-        final var relationDto = new RelationDto("", null, "ANTONYM");
+        final var relationDto = new RelationDto("", null, "ANTONYM", "");
 
         mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -117,7 +117,7 @@ class RelationControllerTest {
 
     @Test
     void givenNonNullAndNonEmptyParametersThenCreateRelationAndReturnNonEmptyResponse() throws Exception {
-        final var relationDto = new RelationDto("son", "daughter", "RELATED");
+        final var relationDto = new RelationDto("son", "daughter", "RELATED", "");
 
         when(relationService.create(any(RelationDto.class))).thenReturn(relationDto);
 
@@ -133,7 +133,7 @@ class RelationControllerTest {
 
     @Test
     void givenNonNullAndNonEmptyParametersThenCreateRelationAndReturnExpectedResponse() throws Exception {
-        final var relationDto = new RelationDto("son", "daughter", "RELATED");
+        final var relationDto = new RelationDto("son", "daughter", "RELATED", "");
 
         when(relationService.create(any(RelationDto.class))).thenReturn(relationDto);
 
