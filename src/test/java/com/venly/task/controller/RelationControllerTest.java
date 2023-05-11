@@ -7,6 +7,7 @@ import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,7 +17,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -115,6 +119,8 @@ class RelationControllerTest {
     void givenNonNullAndNonEmptyParametersThenCreateRelationAndReturnNonEmptyResponse() throws Exception {
         final var relationDto = new RelationDto("son", "daughter", "RELATED");
 
+        when(relationService.create(any(RelationDto.class))).thenReturn(relationDto);
+
         final var result = mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -122,17 +128,14 @@ class RelationControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        //    final var resultContent = mapper.readValue(result.getResponse().getContentAsString(), RelationDto.class);
-
         assertTrue(result.getResponse().getContentAsString().length() > 0);
-        /*assertEquals(relationDto.getWordOne(), resultContent.getWordOne());
-        assertEquals(relationDto.getWordTwo(), resultContent.getWordTwo());
-        assertEquals(relationDto.getRelationType(), resultContent.getRelationType());*/
     }
 
     @Test
     void givenNonNullAndNonEmptyParametersThenCreateRelationAndReturnExpectedResponse() throws Exception {
         final var relationDto = new RelationDto("son", "daughter", "RELATED");
+
+        when(relationService.create(any(RelationDto.class))).thenReturn(relationDto);
 
         final var result = mockMvc.perform(post("/relations/create")
                         .content(mapper.writeValueAsString(relationDto))
@@ -143,7 +146,6 @@ class RelationControllerTest {
 
         final var resultContent = mapper.readValue(result.getResponse().getContentAsString(), RelationDto.class);
 
-        assertTrue(result.getResponse().getContentAsString().length() > 0);
         assertEquals(relationDto.getWordOne(), resultContent.getWordOne());
         assertEquals(relationDto.getWordTwo(), resultContent.getWordTwo());
         assertEquals(relationDto.getRelationType(), resultContent.getRelationType());

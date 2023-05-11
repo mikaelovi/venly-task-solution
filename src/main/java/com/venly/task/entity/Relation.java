@@ -1,5 +1,7 @@
 package com.venly.task.entity;
 
+import com.venly.task.common.enumeration.RelationType;
+import com.venly.task.entity.dto.RelationDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,8 +18,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.management.relation.RelationType;
 
 @Getter
 @Setter
@@ -44,4 +44,10 @@ public class Relation {
     @NonNull
     @Enumerated(EnumType.STRING)
     private RelationType relationType;
+
+
+    public RelationDto toDto() {
+        return new RelationDto(this.wordOne, this.wordTwo, this.relationType.name());
+    }
+
 }
