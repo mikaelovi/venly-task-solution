@@ -21,15 +21,15 @@ import java.util.Objects;
 @Validated
 public class RelationDto {
     @NotBlank(message = "Word One may not be blank")
-    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
+    @Pattern(regexp = "^[a-zA-Z\\s]*", message = "Only upper and lower cased letters and spaces are allowed")
     String wordOne;
 
     @NotBlank(message = "Word Two may not be blank")
-    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
+    @Pattern(regexp = "^[a-zA-Z\\s]*", message = "Only upper and lower cased letters and spaces are allowed")
     String wordTwo;
 
     @NotBlank(message = "Relation Type may not be blank")
-    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
+    @Pattern(regexp = "^[a-zA-Z\\s]*", message = "Only upper and lower cased letters and spaces are allowed")
     String relationType;
 
     String inverse;

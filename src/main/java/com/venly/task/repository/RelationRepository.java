@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface RelationRepository extends JpaRepository<Relation, Long> {
-    List<Relation> findAllByRelation(RelationType relationType);
+    List<Relation> findAllByRelationType(RelationType relationType);
 
-    boolean existsWordRelationByWordAndAnotherWordAndRelation(String word, String anotherWord, RelationType relation);
+    boolean existsWordRelationByWordOneAndWordTwoAndRelationType(String word, String anotherWord, RelationType relation);
 }

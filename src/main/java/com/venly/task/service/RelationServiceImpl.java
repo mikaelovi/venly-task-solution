@@ -27,9 +27,9 @@ public class RelationServiceImpl implements RelationService {
     @Override
     public RelationDto create(RelationDto wordRelation) {
 
-        if (relationRepository.existsWordRelationByWordAndAnotherWordAndRelation(wordRelation.getWordOne(),
+        if (relationRepository.existsWordRelationByWordOneAndWordTwoAndRelationType(wordRelation.getWordOne(),
                 wordRelation.getWordTwo(), RelationType.valueOf(wordRelation.getRelationType()))
-                || relationRepository.existsWordRelationByWordAndAnotherWordAndRelation(wordRelation.getWordTwo(),
+                || relationRepository.existsWordRelationByWordOneAndWordTwoAndRelationType(wordRelation.getWordTwo(),
                 wordRelation.getWordOne(), RelationType.valueOf(wordRelation.getRelationType()))) {
             throw new BadRequestException(String.format("An existing relation exists between %s and %s",
                     wordRelation.getWordOne(), wordRelation.getWordTwo()));
@@ -65,7 +65,7 @@ public class RelationServiceImpl implements RelationService {
     public List<Relation> filterByRelation(String relation) {
         final var relationType = RelationType.valueOf(relation);
 
-        return relationRepository.findAllByRelation(relationType);
+        return relationRepository.findAllByRelationType(relationType);
     }
 
     @Override
