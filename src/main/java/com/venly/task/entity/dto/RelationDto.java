@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.venly.task.common.enumeration.RelationType;
 import com.venly.task.entity.Relation;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
@@ -16,14 +18,18 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @ToString
 @Data
+@Validated
 public class RelationDto {
     @NotBlank(message = "Word One may not be blank")
+    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
     String wordOne;
 
     @NotBlank(message = "Word Two may not be blank")
+    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
     String wordTwo;
 
     @NotBlank(message = "Relation Type may not be blank")
+    @Pattern(regexp = "^[a-zA-Z\\s]", message = "Only upper and lower cased letters and spaces are allowed")
     String relationType;
 
     String inverse;
